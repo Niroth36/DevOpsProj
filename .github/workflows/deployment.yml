@@ -1,0 +1,21 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CD
+
+# Controls when the workflow will run
+on: [workflow_dispatch]
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+    - name: deploy the new version of app
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.PASSWORD }}
+        username: ${{ secrets.USERNAME }}
+        port: 22
+        script: |
+          cd /home/charitosdim93
+          docker-compose down
+          docker-compose up -d --force-recreate
