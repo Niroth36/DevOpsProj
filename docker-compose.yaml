@@ -1,0 +1,22 @@
+version: "3"
+services:
+  web:
+    container_name: myapp
+    build: .
+    ports:
+      - 5000:5000
+  mysql:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 3663
+      MYSQL_DATABASE: appdb
+      MYSQL_ROOT_HOST: '%'
+    ports:
+      - 3307:3306
+    container_name: "mysql"
+    volumes:
+      - myappdb:/var/lib/mysql
+
+volumes:
+  myappdb:
