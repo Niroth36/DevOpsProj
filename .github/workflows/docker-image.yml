@@ -32,3 +32,14 @@ jobs:
           context: .
           push: true
           tags: niroth36/vetapp:latest
+      - name: deploy the new version of the app
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          password: ${{ secrets.PASSWORD }}
+          port: 22
+          script: |
+            cd /home/charitosdim93
+            docker-compose down
+            docker-compose up -d --force-recreate
